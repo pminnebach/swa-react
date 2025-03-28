@@ -5,12 +5,16 @@ function App() {
 
   useEffect(() => {
     (async function () {
-      const { text } = await( await fetch(`/api/message`)).json();
-      setData(text);
+      try {
+        const { text } = await( await fetch('/api/message')).json();
+        setData(text);
+      } catch (error) {
+        console.error('Error fetching data:', error);
+      }
     })();
   });
 
-  return <div>{data}</div>;
+  return <div>{data || 'loading ...'}</div>;
 }
 
 export default App;
