@@ -11,17 +11,17 @@ app.http('addTimeRegistration', {
     extraOutputs: [tableOutput],
 
     handler: async (request, context) => {
-        const rows = [];
-        for (let i = 1; i < 10; i++) {
-            rows.push({
-                PartitionKey: 'Test',
-                RowKey: i.toString(),
-                Name: `Name ${i}`,
-            });
-        }
+        const row = {
+            PartitionKey: 'EmployeeName',
+            RowKey: uuidv4(),
+            Date: new Date().toISOString(),
+            RegistrationType: 'DayStart',
+        };
 
-        context.extraOutputs.set(tableOutput, rows);
-        
+        console.log('Adding time registration:', row);
+
+        context.extraOutputs.set(tableOutput, row);
+
         return { status: 201 };
     },
 });
