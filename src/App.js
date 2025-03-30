@@ -1,26 +1,16 @@
 import React, { useState } from 'react';
 
 function App() {
-  const [data, setData] = useState('');
+  const [timeRegistrations, setTimeRegistrations] = useState([]); // New state for time registrations
 
-  const fetchData = async () => {
-    try {
-      const response = await fetch('/api/message');
-      if (!response.ok) {
-        throw new Error('Network response was not ok');
-      }
-      const result = await response.json();
-      console.log('Data fetched from /api/message: ', result);
-      setData(result.text);
-    } catch (error) {
-      console.error('Error fetching data:', error);
-    }
-  };
-
-  const addTimeRegistration = async () => {
+  const addTimeRegistration = async (registrationType) => {
     try {
       const response = await fetch('/api/addTimeRegistration', {
         method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ registrationType }),
       });
       if (!response.ok) {
         throw new Error('Network response was not ok');
@@ -31,11 +21,47 @@ function App() {
     }
   };
 
+  const getTimeRegistration = async () => {
+    try {
+      const response = await fetch('/api/getTimeRegistration',
+        {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({ partitionKey: 'EmployeeName' }), // Adjust as needed
+        }
+      );
+      if (!response.ok) {
+        throw new Error('Network response was not ok');
+      }
+      // const result = await response.json(); // Ensure JSON parsing
+      const text = await response.text(); // Get the raw response text
+      const data = text ? JSON.parse(text) : {}; // If text is not empty, parse it as JSON, otherwise use an empty object
+      console.log('Time registration data:', data);
+      setTimeRegistrations(data || []); // Ensure state is updated with an array
+    } catch (error) {
+      console.error('Error fetching time registration:', error);
+    }
+  };
+
   return (
     <div>
-      <div>{data || 'loading ...'}</div>
-      <button onClick={fetchData}>Button 1</button>
-      <button onClick={addTimeRegistration}>Add Time Registration</button>
+      <button onClick={() => addTimeRegistration('DayStart')}>DayStart</button>
+      <button onClick={() => addTimeRegistration('LunchStart')}>LunchStart</button>
+      <button onClick={() => addTimeRegistration('LunchEnd')}>LunchEnd</button>
+      <button onClick={() => addTimeRegistration('DayEnd')}>DayEnd</button>
+      <button onClick={getTimeRegistration}>Get Time Registration</button>
+      <div>
+        <h3>Time Registrations:</h3>
+        <ul>
+          {timeRegistrations.map((registration, index) => (
+            <li key={index}>
+              {registration.Date} - {registration.RegistrationType}
+            </li>
+          ))}
+        </ul>
+      </div>
     </div>
   );
 }
