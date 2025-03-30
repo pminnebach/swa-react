@@ -3,7 +3,7 @@ const { app, input } = require('@azure/functions');
 const tableInput = input.table({
     tableName: 'TimeRegistration',
     partitionKey: 'EmployeeName',
-    connection: 'AzureWebJobsTableStorage',
+    connection: 'TableConnectionString',
 });
 
 app.http('getTimeRegistration', {

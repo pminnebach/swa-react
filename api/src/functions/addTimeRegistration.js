@@ -3,7 +3,7 @@ const { v4: uuidv4 } = require('uuid'); // Import uuidv4
 
 const tableOutput = output.table({
     tableName: 'TimeRegistration',
-    connection: 'AzureWebJobsTableStorage',
+    connection: 'TableConnectionString',
 });
 
 app.http('addTimeRegistration', {
