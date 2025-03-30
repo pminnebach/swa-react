@@ -4,7 +4,7 @@ app.http('message', {
     methods: ['GET', 'POST'],
     authLevel: 'anonymous',
     handler: async (request, context) => {
-        console.log('Hello, from the API!');
-        return { body: JSON.stringify('Hello, from the API!') };
+        console.log('message api function called');
+        return { body: JSON.stringify({ text: 'Hello, from the API!' }) };
     }
 });
