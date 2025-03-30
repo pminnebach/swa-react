@@ -12,6 +12,14 @@ app.http('addTimeRegistration', {
     extraOutputs: [tableOutput],
 
     handler: async (request, context) => {
+        const year = new Date().getFullYear();
+        const month = String(new Date().getMonth() + 1).padStart(2, '0');
+        const day = String(new Date().getDate()).padStart(2, '0');
+        const date = `${year}-${month}-${day}`;
+        const hour = String(new Date().getHours()).padStart(2, '0');
+        const minute = String(new Date().getMinutes()).padStart(2, '0');
+        const second = String(new Date().getSeconds()).padStart(2, '0');
+        const time = `${hour}:${minute}:${second}`;
         const { registrationType } = await request.json();
         console.log('registrationType: ', registrationType);
 
@@ -23,7 +31,10 @@ app.http('addTimeRegistration', {
         const row = {
             PartitionKey: 'EmployeeName',
             RowKey: uuidv4(),
-            Date: new Date().toISOString(),
+            Date: date,
+            Time: time,
+            DateTime: "${date}T${time}",
+            ISODateTime: new Date().toISOString(),
             RegistrationType: registrationType,
         };
 
