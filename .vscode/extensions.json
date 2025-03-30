@@ -3,6 +3,7 @@
     "ms-azuretools.vscode-azurefunctions",
     "ms-azuretools.vscode-azurestaticwebapps",
     "github.vscode-github-actions",
-    "azurite.azurite"
+    "azurite.azurite",
+    "eamodio.gitlens"
   ]
 }
