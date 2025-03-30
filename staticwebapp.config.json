@@ -4,5 +4,20 @@
     },
     "platform": {
         "apiRuntime": "node:20"
+    },
+    "responseOverrides": {
+        "400": {
+            "rewrite": "/redirect/badRequest.html"
+        },
+        "401": {
+            "statusCode": 302,
+            "redirect": "/redirect/unauthorized.html"
+        },
+        "403": {
+            "rewrite": "/redirect/forbidden.html"
+        },
+        "404": {
+            "rewrite": "/redirect/notFound.html"
+        }
     }
 }
