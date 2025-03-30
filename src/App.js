@@ -1,28 +1,43 @@
-import React, { useState, useEffect } from 'react';
-
-// https://www.freecodecamp.org/news/how-to-fetch-api-data-in-react/
+import React, { useState } from 'react';
 
 function App() {
   const [data, setData] = useState('');
 
-  useEffect(() => {
-    fetch('/api/message')
-      .then((res) => {
-        if (!res.ok) {
-          throw new Error('Network response was not ok');
-        }
-        return res.json();
-      })
-      .then((data) => {
-        console.log('Data fetched from /api/message: ', data);
-        setData(data.text);
-      })
-      .catch((error) => {
-        console.error('Error fetching data:', error);
-      });
-  }, []);
+  const fetchData = async () => {
+    try {
+      const response = await fetch('/api/message');
+      if (!response.ok) {
+        throw new Error('Network response was not ok');
+      }
+      const result = await response.json();
+      console.log('Data fetched from /api/message: ', result);
+      setData(result.text);
+    } catch (error) {
+      console.error('Error fetching data:', error);
+    }
+  };
 
-  return <div>{data || 'loading ...'}</div>;
+  const addTimeRegistration = async () => {
+    try {
+      const response = await fetch('/api/addTimeRegistration', {
+        method: 'POST',
+      });
+      if (!response.ok) {
+        throw new Error('Network response was not ok');
+      }
+      console.log('Time registration added successfully');
+    } catch (error) {
+      console.error('Error adding time registration:', error);
+    }
+  };
+
+  return (
+    <div>
+      <div>{data || 'loading ...'}</div>
+      <button onClick={fetchData}>Button 1</button>
+      <button onClick={addTimeRegistration}>Add Time Registration</button>
+    </div>
+  );
 }
 
 export default App;
