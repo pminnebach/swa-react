@@ -54,13 +54,26 @@ function App() {
       <button onClick={getTimeRegistration}>Get Time Registration</button>
       <div>
         <h3>Time Registrations:</h3>
-        <ul>
-          {timeRegistrations.map((registration, index) => (
-            <li key={index}>
-              {registration.Date} - {registration.RegistrationType}
-            </li>
-          ))}
-        </ul>
+        <table>
+          <thead>
+            <tr>
+              <th>PartitionKey</th>
+              <th>Date</th>
+              <th>RegistrationType</th>
+              <th>Time</th>
+            </tr>
+          </thead>
+          <tbody>
+            {timeRegistrations.map((registration, index) => (
+              <tr key={index}>
+                <td>{registration.PartitionKey}</td>
+                <td>{registration.Date}</td>
+                <td>{registration.RegistrationType}</td>
+                <td>{registration.Time}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
       </div>
     </div>
   );
