@@ -6,7 +6,7 @@
       "apiLocation": "api",
       "outputLocation": "build",
       "apiLanguage": "node",
-      "apiVersion": "18",
+      "apiVersion": "20",
       "appBuildCommand": "npm run build",
       "apiBuildCommand": "npm install",
       "run": "npm start",
