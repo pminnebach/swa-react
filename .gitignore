@@ -29,3 +29,5 @@ __azurite_db*__.log
 __blobstorage__
 __queuestorage__
 __tablestorage__
+
+.env

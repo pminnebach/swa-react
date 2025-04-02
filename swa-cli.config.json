@@ -6,11 +6,13 @@
       "apiLocation": "api",
       "outputLocation": "build",
       "apiLanguage": "node",
-      "apiVersion": "20",
+      "apiVersion": "16",
       "appBuildCommand": "npm run build",
-      "apiBuildCommand": "npm run build --if-present",
+      "apiBuildCommand": "npm run build",
       "run": "npm start",
-      "appDevserverUrl": "http://localhost:3000"
+      "appDevserverUrl": "http://localhost:3000",
+      "appName": "swa-react",
+      "resourceGroup": "swa-react-rg"
     }
   }
 }
