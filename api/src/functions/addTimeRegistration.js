@@ -33,7 +33,7 @@ app.http('addTimeRegistration', {
             RowKey: uuidv4(),
             Date: date,
             Time: time,
-            DateTime: "${date}T${time}",
+            DateTime: `${date}T${time}`,
             ISODateTime: new Date().toISOString(),
             RegistrationType: registrationType,
         };
